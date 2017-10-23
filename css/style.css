@@ -1,5 +1,32 @@
-.test {
-    height: 100px;
-    width: 100px;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+[class*="col-"] {
+    float: left;
+}
+.col-3 {
+    width: calc(25% - 10px);
+}
+* {
+    box-sizing: border-box;
+}
+.hatch {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20pt;
+    text-align: center;
+    line-height: 200px;
+    box-shadow: 0 0 3px #000;
+    margin: 0 5px 0 5px;
+    height: 200px;
     background-color: #000;
+    color: #FFF;
+}
+@media screen and (orientation: portrait) {
+    .col-3 {
+	width: calc(100% - 10px);
+    }
+    .hatch {
+	height: 500px;
+	line-height: 500px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+    }
 }
