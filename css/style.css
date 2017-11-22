@@ -1,4 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
+@keyframes opendoor {
+    0% {
+	transform: rotate3d(0, 1, 0, 0deg);
+    }
+    100% {
+	transform: rotate3d(0, 1, 0, 88deg);
+    }
+}
+.open {
+    animation: opendoor;
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
+}
+.hatch-content {
+    color: #000;
+    box-shadow: inset 0 0 10px #000;
+    float: left;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    background: #222;
+}
 [class*="col-"] {
     float: left;
 }
@@ -8,16 +33,23 @@
 * {
     box-sizing: border-box;
 }
+.hatch-label {
+    transform-origin: 0% 0%;
+    box-shadow: 0 0 3px #000;
+    background-color: #000;
+    line-height: 50vh;
+    width: 100%;
+    height: 100%;
+}
 .hatch {
+    position: relative;
     font-family: 'Roboto', sans-serif;
     font-size: 20pt;
     text-align: center;
-    line-height: 200px;
-    box-shadow: 0 0 3px #000;
     margin: 0 5px 0 5px;
-    height: 200px;
-    background-color: #000;
+    height: 50vh;
     color: #FFF;
+    transform-origin: 0% 0%;
 }
 @media screen and (orientation: portrait) {
     .col-3 {
