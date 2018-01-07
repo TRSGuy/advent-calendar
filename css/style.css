@@ -124,7 +124,6 @@
   }
 }
 [class*="anim-2"] {
-  position: relative;
   height: 1px;
   width: 18px;
   float: left;
@@ -134,6 +133,35 @@
 }
 /* END: Second Hatch Animation */
 
+/* BEGIN: Third Hatch Animation */
+
+@keyframes anim-3-square {
+  0% {
+    transform: scale(0.1,0.1) rotate(0deg);
+    box-shadow: 0 0 2px #000;
+  }
+  50% {
+    transform: scale(1,1) rotate(360deg);
+    box-shadow: 0 0 6px #000;
+  }
+  100% {
+    transform: scale(0.1,0.1) rotate(0deg);
+    box-shadow: 0 0 2px #000;
+  }
+}
+[class*="anim-3"] {
+  transform-origin: 50% 50%;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  animation: anim-3-square;
+  animation-duration: 2s !important;
+}
+.anim-3-square-1 {top: 0px; left: 0px;}
+.anim-3-square-2 {top: 0px; left: 50px;}
+.anim-3-square-3 {top: 50px; left: 0px;}
+.anim-3-square-4 {top: 50px; left: 50px;}
+/* END: Third Hatch Animation */
 @media screen and (orientation: portrait) {
     .col-3 {
 	width: calc(100% - 10px);

@@ -7,6 +7,9 @@ $(document).ready(function() {
 	    $(this).toggleClass("open");
 	});
 	for (var i = 1; i <= 5; i++) {
-		$(".anim-2-bar-" + i).css("animation-delay", "0." + i + "s")
+		if(i <= 4) {
+			$(".anim-3-square-" + i).css("animation-delay", "0." + i + "s");
+		}
+		$(".anim-2-bar-" + i).css("animation-delay", "0." + i + "s");
 	}
 });
