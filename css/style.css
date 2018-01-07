@@ -58,7 +58,16 @@
     position: relative;
     top: calc(50% - 50px);
 }
+.anim-obj {
+  animation-iteration-count: infinite !important;
+  animation-duration: 1s !important;
+  animation-timing-function: ease-in-out !important;
+  box-shadow: 0 0 2px #000;
+  background: #000;
+}
+/* ============================ */
 /* BEGIN: First Hatch Animation */
+/* ============================ */
 @keyframes anim-1-left-to-right { /* Moving left to right */
     0% {
 	     left: 0;
@@ -76,12 +85,7 @@
     }
 }
 [class*="anim-1"] {
-  animation-iteration-count: infinite !important;
-  animation-duration: 1s !important;
-  animation-timing-function: ease-in-out !important;
-  box-shadow: 0 0 2px #000;
   position: absolute;
-  background: #000;
   border-radius: 30px;
   height: 20px;
   width: 20px;
@@ -104,7 +108,31 @@
   animation-direction: alternate-reverse;
   top: 80px;
 }
+/* ========================== */
 /* END: First Hatch Animation */
+/* ========================== */
+
+/* BEGIN: Second Hatch Animation */
+@keyframes anim-2-bar {
+  0% {
+    box-shadow: 0 0 2px #000;
+    height: 1px;
+  }
+  100% {
+    height: 100px;
+    box-shadow: 0 0 6px #000;
+  }
+}
+[class*="anim-2"] {
+  position: relative;
+  height: 1px;
+  width: 18px;
+  float: left;
+  margin: 0 1px 0 1px;
+  animation: anim-2-bar;
+  animation-direction: alternate;
+}
+/* END: Second Hatch Animation */
 
 @media screen and (orientation: portrait) {
     .col-3 {
