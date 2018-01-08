@@ -9,6 +9,7 @@ $(document).ready(function() {
 	for (var i = 1; i <= 5; i++) {
 		if(i <= 4) {
 			$(".anim-3-square-" + i).css("animation-delay", "0." + i + "s");
+			$(".anim-4-bar-" + i).css("animation-delay", "0." + (i + 2) + "s");
 		}
 		$(".anim-2-bar-" + i).css("animation-delay", "0." + i + "s");
 	}
