@@ -59,9 +59,9 @@
     top: calc(50% - 50px);
 }
 .anim-obj {
-  animation-iteration-count: infinite !important;
-  animation-duration: 1s !important;
-  animation-timing-function: ease-in-out !important;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
   box-shadow: 0 0 2px #000;
   background: #000;
 }
@@ -91,20 +91,20 @@
   width: 20px;
 }
 .anim-1-ball-1 { /* The first, top left ball. Moving left to right */
-    animation: anim-1-left-to-right;
+    animation-name: anim-1-left-to-right;
     animation-direction: alternate;
 }
 .anim-1-ball-2 { /* The second, top left ball, moving from top to bottom */
   left: 80px;
-  animation: anim-1-top-to-bottom;
+  animation-name: anim-1-top-to-bottom;
   animation-direction: alternate;
 }
 .anim-1-ball-3 { /* The second, top left ball, moving from top to bottom */
-  animation: anim-1-top-to-bottom;
+  animation-name: anim-1-top-to-bottom;
   animation-direction: alternate-reverse;
 }
 .anim-1-ball-4 { /* The last, bottom right ball, Moving right to left */
-  animation: anim-1-left-to-right;
+  animation-name: anim-1-left-to-right;
   animation-direction: alternate-reverse;
   top: 80px;
 }
@@ -128,7 +128,7 @@
   width: 18px;
   float: left;
   margin: 0 1px 0 1px;
-  animation: anim-2-bar;
+  animation-name: anim-2-bar;
   animation-direction: alternate;
 }
 /* END: Second Hatch Animation */
@@ -154,7 +154,7 @@
   width: 45px;
   height: 45px;
   position: absolute;
-  animation: anim-3-square;
+  animation-name: anim-3-square;
   animation-duration: 2s !important;
 }
 .anim-3-square-1 {top: 0px; left: 0px;}
@@ -162,6 +162,30 @@
 .anim-3-square-3 {top: 50px; left: 0px;}
 .anim-3-square-4 {top: 50px; left: 50px;}
 /* END: Third Hatch Animation */
+/* BEGIN: Fourth Hatch Animation */
+[class*="anim-4-bar"] {
+  height: 50px;
+  width: 20px;
+  position: absolute;
+}
+.anim-4-bar-1 {
+  animation-name: anim-4-bar-1;
+  animation-direction: alternate;
+}
+.anim-4-bar-2 {
+  left: 50px;
+}
+.anim-4-bar-3 {
+  top: 50px;
+}
+.anim-4-bar-4 {
+  left: 50px;
+  top: 50px;
+  width: -50px !important;
+  animation-name: anim-4-bar-4;
+  animation-direction: alternate-reverse;
+}
+/* END: Fourth Hatch Animation */
 @media screen and (orientation: portrait) {
     .col-3 {
 	width: calc(100% - 10px);
