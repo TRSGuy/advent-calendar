@@ -59,11 +59,19 @@
     top: calc(50% - 50px);
 }
 .anim-obj {
+<<<<<<< HEAD
   animation-iteration-count: infinite;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   box-shadow: 0 0 2px #000;
   background: #000;
+=======
+  animation-iteration-count: infinite !important;
+  animation-duration: 1s !important;
+  animation-timing-function: ease-in-out !important;
+  box-shadow: 0 0 2px #FFF;
+  background: #FFF;
+>>>>>>> 53e71dcfed591282aa5bd9a078dac50494f83ce1
 }
 /* ============================ */
 /* BEGIN: First Hatch Animation */
@@ -115,12 +123,12 @@
 /* BEGIN: Second Hatch Animation */
 @keyframes anim-2-bar {
   0% {
-    box-shadow: 0 0 2px #000;
+    box-shadow: 0 0 2px #FFF;
     height: 1px;
   }
   100% {
     height: 100px;
-    box-shadow: 0 0 6px #000;
+    box-shadow: 0 0 6px #FFF;
   }
 }
 [class*="anim-2"] {
@@ -138,15 +146,15 @@
 @keyframes anim-3-square {
   0% {
     transform: scale(0.1,0.1) rotate(0deg);
-    box-shadow: 0 0 2px #000;
+    box-shadow: 0 0 2px #FFF;
   }
   50% {
     transform: scale(1,1) rotate(360deg);
-    box-shadow: 0 0 6px #000;
+    box-shadow: 0 0 6px #FFF;
   }
   100% {
     transform: scale(0.1,0.1) rotate(0deg);
-    box-shadow: 0 0 2px #000;
+    box-shadow: 0 0 2px #FFF;
   }
 }
 [class*="anim-3"] {
