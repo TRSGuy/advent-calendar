@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
  /* Keyframes for the animation that plays when you open the hatch */
 @keyframes opendoor {
-  0% {
-    transform: rotate3d(0, 1, 0, 0deg);
-  }
-  100% {
-    transform: rotate3d(0, 1, 0, 88deg);
-  }
+	0% {
+		transform: rotate3d(0, 1, 0, 0deg);
+	}
+	100% {
+		transform: rotate3d(0, 1, 0, 88deg);
+	}
 }
 /*
 * This class is appended to a hatch face when the user clicks on it. It sets the
@@ -15,36 +15,36 @@
 * handlers (see ./js/main.js file)
 */
 .open {
-  animation: opendoor;
-  animation-fill-mode: forwards;
-  animation-duration: 2s;
+	animation: opendoor;
+	animation-fill-mode: forwards;
+	animation-duration: 2s;
 }
  /*
  * This class contains the properties for the content that is behind the hatch
  * (also referred to as the backface)
  */
 .hatch-content {
-  color: #000;
-  box-shadow: inset 0 0 10px #000;
-  float: left;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  background: #222;
+	color: #000;
+	box-shadow: inset 0 0 10px #000;
+	float: left;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	background: #222;
 }
 /*
 * Expression selector for all the classes beginning with `col-`, only using
 * one column size for now, but added for future
 */
 [class*="col-"] {
-  float: left;
+	float: left;
 }
  /* Sets the width for the three wide columns */
 .col-3 {
-  width: calc(25% - 10px);
+	width: calc(25% - 10px);
 }
 
 /*
@@ -52,14 +52,14 @@
 * actual width of the element is what I've told it to be
 */
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 /* This is the class that control the face of the hatch */
 .hatch-face {
-  transform-origin: 0% 0%;
-  background-color: #000;
-  width: 100%;
-  height: 100%;
+	transform-origin: 0% 0%;
+	background-color: #000;
+	width: 100%;
+	height: 100%;
 }
 /*
 * This is the class that controls the container for each hatch.
@@ -67,39 +67,39 @@
 * and the backface (what's behind the hatch face)
 */
 .hatch {
-  box-shadow: 0 0 3px #000;
-  position: relative;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20pt;
-  text-align: center;
-  margin: 0 5px 0 5px;
-  height: 50vh;
-  color: #FFF;
-  transform-origin: 0% 0%;
+	box-shadow: 0 0 3px #000;
+	position: relative;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20pt;
+	text-align: center;
+	margin: 0 5px 0 5px;
+	height: 50vh;
+	color: #FFF;
+	transform-origin: 0% 0%;
 }
 /* This is the class that controls the animation containers */
 .animation-container {
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  position: relative;
-  top: calc(50% - 50px);
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	position: relative;
+	top: calc(50% - 50px);
 }
 /*
 * This is the class that controls all the `div` tags that are being animated
 * (Except the hatches)
 */
 .anim-obj {
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  box-shadow: 0 0 2px #000;
-  background: #000;
-  animation-iteration-count: infinite !important;
-  animation-duration: 1s !important;
-  animation-timing-function: ease-in-out !important;
-  box-shadow: 0 0 2px #FFF;
-  background: #FFF;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	box-shadow: 0 0 2px #000;
+	background: #000;
+	animation-iteration-count: infinite !important;
+	animation-duration: 1s !important;
+	animation-timing-function: ease-in-out !important;
+	box-shadow: 0 0 2px #FFF;
+	background: #FFF;
 }
 /*
 * The first keyframes for the first animation. The reason I'm using `0%` to
@@ -110,20 +110,20 @@
 * and back and forth
 */
 @keyframes anim-0-left-to-right {
-  0% {
-   left: 0;
-  }
-  100% {
-   left: 80px;
-  }
+	0% {
+	 left: 0;
+	}
+	100% {
+	 left: 80px;
+	}
 }
 @keyframes anim-0-top-to-bottom {
-    0% {
-      top: 0;
-    }
-    100% {
-      top: 80px;
-    }
+		0% {
+			top: 0;
+		}
+		100% {
+			top: 80px;
+		}
 }
 /*
 * Expression selector for all the objects in the first animation container,
@@ -131,10 +131,10 @@
 * that.
 */
 [class*="anim-0"] {
-  position: absolute;
-  border-radius: 30px;
-  height: 20px;
-  width: 20px;
+	position: absolute;
+	border-radius: 30px;
+	height: 20px;
+	width: 20px;
 }
 /*
 * Here comes the part I'm least proud of, an idependant class for each of the
@@ -145,23 +145,23 @@
 * automatically assign them the corresponding keyframe pair and direction to
 * each of the animation objects
 */
+.anim-0-ball-0 {
+	animation-name: anim-0-left-to-right;
+	animation-direction: alternate;
+}
 .anim-0-ball-1 {
-  animation-name: anim-0-left-to-right;
-  animation-direction: alternate;
+	left: 80px;
+	animation-name: anim-0-top-to-bottom;
+	animation-direction: alternate;
 }
 .anim-0-ball-2 {
-  left: 80px;
-  animation-name: anim-0-top-to-bottom;
-  animation-direction: alternate;
+	animation-name: anim-0-top-to-bottom;
+	animation-direction: alternate-reverse;
 }
 .anim-0-ball-3 {
-  animation-name: anim-0-top-to-bottom;
-  animation-direction: alternate-reverse;
-}
-.anim-0-ball-4 {
-  animation-name: anim-0-left-to-right;
-  animation-direction: alternate-reverse;
-  top: 80px;
+	animation-name: anim-0-left-to-right;
+	animation-direction: alternate-reverse;
+	top: 80px;
 }
 /*
 * Keyframe pair for all of the bars in the second animation, I'm using
@@ -171,23 +171,23 @@
 * It animates the height and drop shadow of each bar.
 */
 @keyframes anim-1-bar {
-  0% {
-    box-shadow: 0 0 2px #FFF;
-    height: 1px;
-  }
-  100% {
-    height: 100px;
-    box-shadow: 0 0 6px #FFF;
-  }
+	0% {
+		box-shadow: 0 0 2px #FFF;
+		height: 1px;
+	}
+	100% {
+		height: 100px;
+		box-shadow: 0 0 6px #FFF;
+	}
 }
 /* Expression selector for all the animation objects in the second animation */
 [class*="anim-1"] {
-  height: 1px;
-  width: 18px;
-  float: left;
-  margin: 0 1px 0 1px;
-  animation-name: anim-1-bar;
-  animation-direction: alternate;
+	height: 1px;
+	width: 18px;
+	float: left;
+	margin: 0 1px 0 1px;
+	animation-name: anim-1-bar;
+	animation-direction: alternate;
 }
 /*
 * Set of keyframes for the third animation, the reason we're using three
@@ -204,27 +204,27 @@
 * to right.
 */
 @keyframes anim-2-square {
-  0% {
-    transform: scale(0.1,0.1) rotate(0deg);
-    box-shadow: 0 0 2px #FFF;
-  }
-  50% {
-    transform: scale(1,1) rotate(360deg);
-    box-shadow: 0 0 6px #FFF;
-  }
-  100% {
-    transform: scale(0.1,0.1) rotate(0deg);
-    box-shadow: 0 0 2px #FFF;
-  }
+	0% {
+		transform: scale(0.1,0.1) rotate(0deg);
+		box-shadow: 0 0 2px #FFF;
+	}
+	50% {
+		transform: scale(1,1) rotate(360deg);
+		box-shadow: 0 0 6px #FFF;
+	}
+	100% {
+		transform: scale(0.1,0.1) rotate(0deg);
+		box-shadow: 0 0 2px #FFF;
+	}
 }
 /* Expression selector for the third animation */
 [class*="anim-2"] {
-  transform-origin: 50% 50%;
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  animation-name: anim-2-square;
-  animation-duration: 2s !important;
+	transform-origin: 50% 50%;
+	width: 45px;
+	height: 45px;
+	position: absolute;
+	animation-name: anim-2-square;
+	animation-duration: 2s !important;
 }
 /*
 * The folllowing four statements sets the starting position for each of the
@@ -235,10 +235,10 @@
 * This is probably something that I'll move to JS later because I think it
 * looks awful (as I said, I hate redundant code)
 */
-.anim-2-square-1 {top: 0px; left: 0px;}
-.anim-2-square-2 {top: 0px; left: 50px;}
-.anim-2-square-3 {top: 50px; left: 0px;}
-.anim-2-square-4 {top: 50px; left: 50px;}
+.anim-2-square-0 {top: 0px; left: 0px;}
+.anim-2-square-1 {top: 0px; left: 50px;}
+.anim-2-square-2 {top: 50px; left: 0px;}
+.anim-2-square-3 {top: 50px; left: 50px;}
 /*
 * This is the final keyframe set, it's used in the last animation
 * I have to specify both width and height in all three Keyframes,
@@ -246,27 +246,27 @@
 * it would just do it slower than the width.
 */
 @keyframes anim-3-bar {
-  0% {
-    width: 1px;
-    height: 1px;
-  }
-  50% {
-    width: 45px;
-    height: 1px;
-  }
-  100% {
-    height: 45px;
-    width: 45px;
-  }
+	0% {
+		width: 1px;
+		height: 1px;
+	}
+	50% {
+		width: 45px;
+		height: 1px;
+	}
+	100% {
+		height: 45px;
+		width: 45px;
+	}
 }
 /* Expression selector for the elements in the third animation */
 [class*="anim-3"] {
-  height: 50px;
-  width: 20px;
-  position: absolute;
-  animation-name: anim-3-bar;
-  animation-direction: alternate;
-  animation-duration: 1.5s !important;
+	height: 50px;
+	width: 20px;
+	position: absolute;
+	animation-name: anim-3-bar;
+	animation-direction: alternate;
+	animation-duration: 1.5s !important;
 }
 /*
 * The following three blocks are to keep the different bars in the
@@ -274,21 +274,21 @@
 * positioning, and just added a `float: left` statement to all the animated
 * elements, but decided against it, because I felt I had more freedom and
 * flexability when using position absolute */
-.anim-3-bar-2 {left: 50px;}
-.anim-3-bar-3 {top: 50px;}
-.anim-3-bar-4 {left: 50px; top: 50px;}
+.anim-3-bar-1 {left: 50px;}
+.anim-3-bar-2 {top: 50px;}
+.anim-3-bar-3 {left: 50px; top: 50px;}
 /*
 * This is the block that makes the whole site responsive, it basically says:
 * if the height is more than the width, set the width of each column to them
 * width of the whole screen
 */
 @media screen and (orientation: portrait) {
-  .col-3 {
-    width: calc(100% - 10px);
-  }
-  .hatch {
-    height: 500px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
+	.col-3 {
+		width: calc(100% - 10px);
+	}
+	.hatch {
+		height: 500px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
 }
