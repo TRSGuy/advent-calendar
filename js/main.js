@@ -33,7 +33,7 @@ $(document).ready(function() {
 	for (var hatchIter = 0; hatchIter < hatches.length; hatchIter++) { // For each hatch
 		var hatch = hatches[hatchIter];
 		var hatchElement = $("<div/>").addClass("hatch col-3");
-		hatchElement.append($("<div/>").addClass("hatch-face").text(hatchIter + 1));
+		hatchElement.append($("<div/>").addClass("hatch-face").append($("<div class='hatch-face-text'/>").text(hatchIter + 1)));
 		hatchElement.append($("<div/>").addClass("hatch-content"));
 		if(hatch["hatch-content"]["animation"]) { // It is an animation
 			var animationContainer = $("<div/>").addClass("animation-container");
@@ -46,6 +46,7 @@ $(document).ready(function() {
 					hatchElement.children().eq(1).append(animationContainer);
 				}
 			}
+		} else if (hatch["hatch-content"]) {
 		}
 		$("#hatches-container").append(hatchElement);
 	}

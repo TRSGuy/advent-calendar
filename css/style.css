@@ -61,6 +61,14 @@
 	width: 100%;
 	height: 100%;
 }
+/* A container for the text of the face (mainly here to help center it) */
+.hatch-face-text {
+	height: 20px;
+	width: 20px;
+	margin: auto;
+	top: calc(50% - 20px);
+	position: relative;
+}
 /*
 * This is the class that controls the container for each hatch.
 * The container contains both the hatch face (what is actually begin opened),
