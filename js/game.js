@@ -1,27 +1,27 @@
 /*
 * A Breakout clone built in HTML5
-* TODO: Utilize something like a render queue (an Array that contains class
-* instance of everything that needs to be rendered, so we can loop through the
-* array in our game.draw() function to make adding new visual elements easier)
-* TODO: Create three parts of the paddle that makes the ball bounce at different
-* angles depending on which part you hit (to give the player some more control)
-* TODO: Change the ball's velocity on impact with the paddle depeding on if the
-* paddle is moving, and in which direction
 */
 var game;
 function randRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function Game(width, height, canvasID) { // Constructor function for the game
-	this.width = width;
-	this.height = height;
+	this.blockRowSettings = {
+		"ROW_HEIGHT": 50,
+		"Y_MARGIN": 7,
+		"X_MARGIN": 10,
+		"BLOCK_MIN_WIDTH": 20,
+		"BLOCK_MAX_WIDTH": 80,
+	}
+	this.width = Math.floor($("#" + canvasID).width());
+	this.height = Math.floor($("#" + canvasID).height());
 	this.canvas = $("#" + canvasID).attr("width", this.width).attr("height", this.height);
 	this.ctx = this.canvas[0].getContext("2d");
+	this.totalBlockRows = Math.floor((this.height / 2) / (this.blockRowSettings["ROW_HEIGHT"] + this.blockRowSettings["Y_MARGIN"]));
 	this.paddle = new Paddle(50, 10, 10, "#0DD", this);
 	this.ball = new Ball(this);
 	this.framerate = 60;
 	this.renderQueue = [];
-	this.totalBlockRows = 6;
 	this.colorPreference = randRange(1, 3);
 	this.blockRows = [];
 	this.speedChangeFactor = 0.9;
@@ -29,7 +29,14 @@ function Game(width, height, canvasID) { // Constructor function for the game
 	this.score = 0;
 	this.lives = 3;
 	this.reset = function() {
+		this.score = 0;
+		this.lives = 3;
+		this.blockRows = [];
+		this.generateBlockRows();
+	}
+	this.retry = function() {
 		this.ball = new Ball(this);
+		this.ball.pause();
 	}
 	this.generateBlockRows = function() {
 		for (var i = 0; i < this.totalBlockRows; i++) {
@@ -60,41 +67,36 @@ function Game(width, height, canvasID) { // Constructor function for the game
 		this.ctx.fillStyle = "#FFF";
 		this.ctx.fillText("Lives: " + this.lives, 10, this.height - this.paddle.offset - this.paddle.height - 10);
 		this.ctx.fillText("Score: " + this.score, this.width - 10 - this.ctx.measureText("Score: " + this.score).width, this.height - this.paddle.offset - this.paddle.height - 10);
+		if(this.ball.isPaused) {
+			/* SHOW CONTROLS */
+		}
 	}
 	this.loop = function() {
-		if(this.inputHandler.pressed[this.inputHandler.Key.A]) {
+		if(this.inputHandler.pressed[this.inputHandler.Key.A] || this.inputHandler.pressed[this.inputHandler.Key.LEFT]) {
 			this.paddle.move(this.paddle.Direction.LEFT);
 			this.paddle.isMoving = this.paddle.Direction.LEFT;
-		} else if(this.inputHandler.pressed[this.inputHandler.Key.D]) {
+		} else if(this.inputHandler.pressed[this.inputHandler.Key.D] || this.inputHandler.pressed[this.inputHanlder.Key.RIGHT]) {
 			this.paddle.move(this.paddle.Direction.RIGHT);
 			this.paddle.isMoving = this.paddle.Direction.RIGHT;
 		} else {
 			this.paddle.isMoving = false;
 		}
+		if(this.ball.isPaused) {
+			if(this.inputHandler.pressed[this.inputHandler.Key.SPACE]) {
+				this.ball.togglePause();
+			}
+		}
 		if(this.ball.x + this.ball.radius * 2 > this.width || this.ball.x < 0) {
 			this.ball.bounce(this.ball.Axis.X);
-		} else if(this.ball.x > this.paddle.x && this.ball.x < this.paddle.x + this.paddle.width && this.ball.y + this.ball.radius * 2 > this.paddle.y && this.ball.y + this.ball.radius * 2 < this.paddle.y + this.paddle.height || this.ball.y < 0) {
-			if(this.paddle.isMoving) {
-				console.log(this.paddle.isMoving);
-				if(this.paddle.isMoving == this.paddle.Direction.RIGHT && this.ball.currentDirection == "DOWN_RIGHT") {
-					this.ball.speed /= this.speedChangeFactor;
-				} else if(this.paddle.isMoving == this.paddle.Direction.LEFT && this.ball.currentDirection == "DOWN_LEFT") {
-					this.ball.speed /= this.speedChangeFactor;
-				} else if(this.paddle.isMoving == this.paddle.Direction.RIGHT && this.ball.currentDirection == "DOWN_LEFT") {
-					this.ball.speed *= this.speedChangeFactor;
-				} else if(this.paddle.isMoving == this.paddle.Direction.LEFT && this.ball.currentDirection == "DOWN_RIGHT") {
-					this.ball.speed *= this.speedChangeFactor;
-				}
-
-				console.log(this.score);
-			}
-		this.ball.bounce(this.ball.Axis.Y);
+		} else if(this.ball.x > this.paddle.x && this.ball.x < this.paddle.x + this.paddle.width && this.ball.y + this.ball.radius * 2 > this.paddle.y || this.ball.y < 0) {
+			this.ball.bounce(this.ball.Axis.Y);
 		}
 		if(this.ball.y > this.height) {
-			if(this.lives < 0) {
+			if(this.lives <= 0) {
+				this.reset();
 			} else {
 				this.lives--;
-				this.reset();
+				this.retry();
 			}
 		}
 		for (var row = 0; row < this.blockRows.length; row++) {
@@ -138,7 +140,8 @@ function InputHandler() {
 		LEFT: 37,
 		RIGHT: 93,
 		A: 65,
-		D: 68
+		D: 68,
+		SPACE: 32
 	}
 	this.pressed = {}
 	this.onKeyDown = function(event) {
@@ -150,12 +153,7 @@ function InputHandler() {
 }
 function BlockRow(game, rowNumber, colorPreference) {
 	this.colorPreference = colorPreference;
-	this.blockMinWidth = 20;
-	this.blockMaxWidth = 80;
 	this.rowNumber = rowNumber;
-	this.xMargin = 10;
-	this.yMargin = 7;
-	this.rowHeight = 50;
 	this.blocks = [];
 	this.draw = function() {
 		for (var i = 0; i < this.blocks.length; i++) {
@@ -163,17 +161,17 @@ function BlockRow(game, rowNumber, colorPreference) {
 		}
 	}
 	this.generateBlocks = function() {
-		var startX = this.xMargin;
+		var startX = game.blockRowSettings["X_MARGIN"];
 		while(startX < game.width) {
-			if(startX + this.blockMaxWidth + this.xMargin < game.width) {
-				var width = randRange(this.blockMinWidth, this.blockMaxWidth);
+			if(startX + game.blockRowSettings["BLOCK_MAX_WIDTH"] + game.blockRowSettings["X_MARGIN"] < game.width) {
+				var width = randRange(game.blockRowSettings["BLOCK_MIN_WIDTH"], game.blockRowSettings["BLOCK_MAX_WIDTH"]);
 			} else {
-				var width = game.width - startX - this.xMargin;
+				var width = game.width - startX - game.blockRowSettings["X_MARGIN"];
 			}
-			var block = new Block(startX, (this.rowNumber * this.rowHeight + this.yMargin * 2 * this.rowNumber) + this.yMargin, width, this.rowHeight + this.yMargin, this.colorPreference, game);
+			var block = new Block(startX, (this.rowNumber * game.blockRowSettings["ROW_HEIGHT"] + game.blockRowSettings["Y_MARGIN"] * 2 * this.rowNumber) + game.blockRowSettings["Y_MARGIN"], width, game.blockRowSettings["ROW_HEIGHT"] + game.blockRowSettings["Y_MARGIN"], this.colorPreference, game);
 			block.generateColor();
 			this.blocks.push(block);
-			startX += width + this.xMargin;
+			startX += width + game.blockRowSettings["X_MARGIN"];
 		}
 		console.log(this.blocks);
 	}
@@ -210,13 +208,24 @@ function Ball(game) {
 		"-1,-1": "UP_LEFT",
 		"1,-1": "UP_RIGHT"
 	}
+	this.isPaused = true;
+	this.togglePause = function() {
+		if(this.isPaused) {
+			this.isPaused = false;
+			this.speed = this.maxSpeed;
+		} else {
+			this.isPaused = true;
+			this.speed = 0;
+		}
+	}
 	this.currentDirection = "DOWN_RIGHT";
-	this.speed = 1;
+	this.speed = 0;
+	this.maxSpeed = 1;
 	this.dx = 1;
 	this.dy = 1;
 	this.radius = 4;
 	this.x = game.width / 2 - this.radius;
-	this.y = game.height / 2 - this.radius;
+	this.y = game.totalBlockRows * (game.blockRowSettings["ROW_HEIGHT"] + game.blockRowSettings["Y_MARGIN"] * 2) + this.radius * 2;
 	this.draw = function() {
 		game.ctx.fillStyle = "#000";
 		game.ctx.beginPath();
@@ -264,7 +273,6 @@ function Paddle(width, height, bottomOffset, color, game) { // Constructor funct
 		}
 	}
 }
-var loop;
 $(document).ready(function() {
 	game = new Game(500, 800, "canvas");
 	game.setup();
@@ -274,7 +282,7 @@ $(document).ready(function() {
 	window.addEventListener("keydown", function(event) {
 		game.inputHandler.onKeyDown(event);
 	});
-	loop = setInterval(function() {
+	var loop = setInterval(function() {
 		game.loop()
 	}, 1000 / this.framerate);
 });
