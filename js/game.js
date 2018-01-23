@@ -2,20 +2,20 @@
 * A Breakout clone built in HTML5
 */
 var game;
-function randRange(min, max) {
+function randRange(min, max) { // Generates a random number between min and max
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function Game(width, height, canvasID) { // Constructor function for the game
-	this.blockRowSettings = {
-		"ROW_HEIGHT": 50,
-		"Y_MARGIN": 7,
-		"X_MARGIN": 10,
-		"BLOCK_MIN_WIDTH": 20,
-		"BLOCK_MAX_WIDTH": 80,
+	this.blockRowSettings = { // Parameter constants for generating BlockRow()s
+		"ROW_HEIGHT": 50, // The height of the Block()s in the BlockRow()
+		"Y_MARGIN": 7, // The vertical space between the BlockRow()s
+		"X_MARGIN": 10, // The horizontal space between the Block()s in the BlockRow()s
+		"BLOCK_MIN_WIDTH": 20, // The minimum width a block can be (this is sent as the min parameter to randRange() when generating the Block()s width in the BlockRow()s)
+		"BLOCK_MAX_WIDTH": 80 // The maximum width a block can be (this is sent as the max parameter to randRange() when generating the Block()s width in the BlockRow()s)
 	}
-	this.width = Math.floor($("#" + canvasID).width());
-	this.height = Math.floor($("#" + canvasID).height());
-	this.canvas = $("#" + canvasID).attr("width", this.width).attr("height", this.height);
+	this.width = Math.floor($("#" + canvasID).width()); // The calculated width of the <canvas>, as a whole number since we set the width using percentage
+	this.height = Math.floor($("#" + canvasID).height()); // The calculated height of the <canvas>, as a whole number since we set the height using percentage
+	this.canvas = $("#" + canvasID).attr("width", this.width).attr("height", this.height); // Setting the <canvas> height= and width= to what they should be
 	this.ctx = this.canvas[0].getContext("2d");
 	this.totalBlockRows = Math.floor((this.height / 2) / (this.blockRowSettings["ROW_HEIGHT"] + this.blockRowSettings["Y_MARGIN"]));
 	this.paddle = new Paddle(50, 10, 10, "#0DD", this);
@@ -36,7 +36,6 @@ function Game(width, height, canvasID) { // Constructor function for the game
 	}
 	this.retry = function() {
 		this.ball = new Ball(this);
-		this.ball.pause();
 	}
 	this.generateBlockRows = function() {
 		for (var i = 0; i < this.totalBlockRows; i++) {
@@ -75,7 +74,7 @@ function Game(width, height, canvasID) { // Constructor function for the game
 		if(this.inputHandler.pressed[this.inputHandler.Key.A] || this.inputHandler.pressed[this.inputHandler.Key.LEFT]) {
 			this.paddle.move(this.paddle.Direction.LEFT);
 			this.paddle.isMoving = this.paddle.Direction.LEFT;
-		} else if(this.inputHandler.pressed[this.inputHandler.Key.D] || this.inputHandler.pressed[this.inputHanlder.Key.RIGHT]) {
+		} else if(this.inputHandler.pressed[this.inputHandler.Key.D] || this.inputHandler.pressed[this.inputHandler.Key.RIGHT]) {
 			this.paddle.move(this.paddle.Direction.RIGHT);
 			this.paddle.isMoving = this.paddle.Direction.RIGHT;
 		} else {
@@ -173,7 +172,6 @@ function BlockRow(game, rowNumber, colorPreference) {
 			this.blocks.push(block);
 			startX += width + game.blockRowSettings["X_MARGIN"];
 		}
-		console.log(this.blocks);
 	}
 }
 function Block(x, y, width, height, colorPreference, game) {
@@ -202,12 +200,6 @@ function Ball(game) {
 		X: 0,
 		Y: 1
 	}
-	this.Direction = {
-		"1,1": "DOWN_RIGHT",
-		"-1,1": "DOWN_LEFT",
-		"-1,-1": "UP_LEFT",
-		"1,-1": "UP_RIGHT"
-	}
 	this.isPaused = true;
 	this.togglePause = function() {
 		if(this.isPaused) {
@@ -218,14 +210,11 @@ function Ball(game) {
 			this.speed = 0;
 		}
 	}
-	this.currentDirection = "DOWN_RIGHT";
 	this.speed = 0;
 	this.maxSpeed = 1;
 	this.dx = 1;
 	this.dy = 1;
 	this.radius = 4;
-	this.x = game.width / 2 - this.radius;
-	this.y = game.totalBlockRows * (game.blockRowSettings["ROW_HEIGHT"] + game.blockRowSettings["Y_MARGIN"] * 2) + this.radius * 2;
 	this.draw = function() {
 		game.ctx.fillStyle = "#000";
 		game.ctx.beginPath();
@@ -239,8 +228,6 @@ function Ball(game) {
 		} else if(face == this.Axis.Y) {
 			this.dy = -this.dy;
 		}
-		this.currentDirection = this.Direction[this.dx + "," + this.dy];
-		console.log(this.Direction[this.dx + "," + this.dy]);
 	}
 	this.move = function() {
 		this.x += this.dx * this.speed;

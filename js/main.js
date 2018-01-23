@@ -47,6 +47,7 @@ $(document).ready(function() {
 				}
 			}
 		} else if (hatch["hatch-content"]) {
+			hatchElement.children().eq(1).append($(hatch["hatch-content"]));
 		}
 		$("#hatches-container").append(hatchElement);
 	}
